@@ -1,4 +1,6 @@
 <template>
+  Validert innhold vises i stage <br />
+  og kan publiseres til prod.
   <aside>
     <span v-if="canPublishNb || canPublishNn">
       <button v-if="isPublishedNb" @click="unpublish('nb')">Arkiver nb</button>
@@ -16,21 +18,16 @@
     <button v-else disabled="true">Lagre</button>
 
     <span v-if="canPublishNb || canPublishNn">
-      <div v-if="isPublishedNb">
-        Innholdet på bokmål er publisert og kan arkiveres
-      </div>
+      <div v-if="isPublishedNb">Innholdet på bokmål er publisert</div>
       <div v-else-if="canPublishNb">
-        Draften er validert på bokmål og kan publiseres
+        Innholdet på bokmål er lagret og validert
       </div>
-      <div v-if="isPublishedNn">
-        Innholdet på nynorsk er publisert og kan arkiveres
-      </div>
+      <div v-if="isPublishedNn">Innholdet på nynorsk er publisert</div>
       <div v-else-if="canPublishNn">
-        Draften er validert på nynorsk og kan publiseres
+        Innholdet på nynorsk er lagret og validert
       </div>
     </span>
-    <div v-if="canPublish">Det er ingen endringer i draften.</div>
-    <div v-else-if="stateHasChanges">Draften har ulagrede endringer</div>
+    <div v-else-if="stateHasChanges">Innholdet er ikke lagret</div>
   </aside>
   <main>
     <div>Tittel</div>
@@ -119,7 +116,9 @@ const copy = (x) => JSON.parse(JSON.stringify(x));
 <style>
 #app {
   display: grid;
-  grid-template: 1fr 3fr / 1fr 1fr 1fr;
+  grid-template: 1fr 1fr / 1fr 1fr 1fr;
+  row-gap: 20px;
+  font-size: 2em;
 }
 
 aside {
@@ -135,7 +134,6 @@ main {
   align-self: center;
   grid-row: 1;
   grid-column: 2;
-  min-height: 22vh;
 }
 
 .draft {
